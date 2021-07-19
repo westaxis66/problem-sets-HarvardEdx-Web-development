@@ -1,0 +1,150 @@
+/* background */
+.topnav {
+    background-color:white;
+    overflow: hidden;
+}
+
+/* Style links inside */
+.topnav a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change links on hover */
+.topnav a:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+
+/* Right-aligned section inside */
+.topnav-right {
+  float: right;
+}
+.topnav-left{
+  
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+
+}
+
+
+
+
+
+nav{
+    padding: 30px 0;
+    min-width: 700px;
+    margin-left: 920px;
+    
+}
+
+
+
+.searchbar {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+    min-width: fit-content;
+    position: relative;
+    z-index: 1000;
+    justify-content: center;
+  
+    
+    
+    
+}
+.imgtext {
+  position: relative;
+  text-align: center;  
+  color: white;
+  font-size: 70px;
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.inputbar {
+  border-radius: 25px;
+  align-items: center;
+  display: flex;
+  margin-top:10px;
+  outline: none;
+  padding-bottom: 12px;
+  padding-inline-end: 400px;
+  padding-inline-start: 22px;
+  padding-top: 12px;
+  border-color:#cccccc;
+  
+  
+
+
+}
+.inputbar:hover {
+  box-shadow: 0 0 4px 1px #cccccc;
+  
+  
+}
+
+body {
+    font-family: Roboto, system-ui, sans-serif;
+    font-size: 81.25%;
+}
+  
+
+.abutton {
+  border: none;
+  padding: 15px 32px;
+  border-radius: 5px;
+  
+  
+
+}
+.abutton:hover {
+  box-shadow: 0 0 2px 2px #cccccc;
+
+}
+.divider{
+  width:5px;
+  height:auto;
+  display:inline-block;
+}
+
+/* advanced search lables*/
+
+.labels{
+  font-size: small;
+  font-family: sans-serif;
+  padding-left: 35px;
+  /*padding-right: 10px;*/
+  padding-top: 10px;
+}
+
+.adbut{
+  background-color: #3385ff; 
+  color: white;
+  
+  
+}
+.inputads:on-click{
+  background-color: cornflowerblue;
+}
+
+
+
+
+
+ 
