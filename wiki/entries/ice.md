@@ -1,3 +1,0 @@
-#Ice
-
-ice is cold
