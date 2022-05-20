@@ -1,0 +1,53 @@
+{% extends "newsapp/layout.html" %}
+{% load static %}
+{% block title %}
+    newsapp
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        
+    </div>
+
+    <div class="grid-container" id="article">
+        {% for value in data %}
+        <div id="cardhead" class="card mb-3 box" style="max-width: 640px; margin-left:40px; background-color: white;">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{% if user_id != user.id %}<a href="{{value.url}}" target="_blanck"> {% endif %}{{value.title}}</a></h5>
+                        <p class="card-text">{{value.description}}</p>
+                        <p class="card-text"><small class="text-muted">{{value.publishedat}}</small></p>
+                    </div>
+                    
+                </div>
+
+                <div class="col-md-4 img-box">
+                    <img src="{{value.image}}" class="card-img" alt="..." height="100%">
+                </div>
+            </div>
+           
+            
+        </div>
+        <div class="container">
+            
+        </div>
+        {% endfor %}
+        <style>
+           
+       
+
+        </style>
+        
+    </div>
+   
+
+
+
+<script>
+
+
+</script>
+
+{% endblock %}

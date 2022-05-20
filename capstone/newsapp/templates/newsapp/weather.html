@@ -1,0 +1,59 @@
+{% extends "newsapp/layout.html" %}
+{% load static %}
+
+{% block title %}
+    weather
+{% endblock %}
+
+
+{% block body %}
+
+  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <br />
+  
+ 
+  <center class="row">
+    <form method="post" class="col-md-6 col-md-offset-3">
+      {% csrf_token %}
+      <div class="input-group">
+        <input type="text" class="form-control" style="height: 34px;border: 1px solid black;" name="city" placeholder="Enter your cities name here">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit" style="border-radius: 0px 5px 5px 0px; border: 1px solid black; ">
+            <i class="glyphicon glyphicon-search" style="color:black;"></i>
+          </button>
+        </div>
+        <form>
+  </center>
+  <br>
+
+  <div class="row" id="weatherdisplay">
+    {% if country_code and cor and temp and pressure and humidity %}
+    <div class="col-md-6 col-md-offset-3 " 
+        style="font-size:medium; color: white; background-image: url('/static/newsapp/lake-1802337__340.webp');
+         background-size: cover;">
+        <h1 style='text-align: center; color:white;'><strong>{{city}}</strong></h1>
+        <h4 style="display: inline-block; padding-right: 10px;">country code :</h4>{{country_code}}<hr>
+        <h4 style="display: inline-block; padding-right: 10px;">Longitude :</h4><span> {{cor}}°</span> <hr>
+        <h4 style="display: inline-block; padding-right: 10px;">Latitude :</h4><span> {{corlat}}°</span> <hr>
+        <h4 style="display: inline-block; padding-right: 10px;">temp : </h4><span> {{temp}}°</span><hr>
+        <h4 style="display: inline-block; padding-right: 10px;">min temp : </h4><span> {{temp_min}}°</span><hr>
+        <h4 style="display: inline-block; padding-right: 10px;">max temp : </h4><span> {{temp_max}}°</span><hr>
+        <h4 style="display: inline-block; padding-right: 10px;">pressure :  </h4><span> {{pressure}}hPa</span><hr>
+        <h4 style="display: inline-block; padding-right: 10px;">humidity : </h4> <span> {{humidity}}%</span><hr>
+        <h4 style="display: inline-block; padding-right: 10px;">Weather : </h4> <span> {{main}}</span><hr>
+        <h4 style="display: inline-block; padding-right: 10px;">Curerent Conditions : </h4> <span> {{description}}</span> 
+        <img src='http://openweathermap.org/img/w/{{icon}}.png' alt='image' style='width:70px;'>
+    </div>
+    
+    {% endif %}
+  </div>
+
+
+
+
+
+{% endblock %}

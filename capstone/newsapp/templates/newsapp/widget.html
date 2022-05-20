@@ -1,0 +1,79 @@
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+</head>
+
+
+
+<div class="widget-box" id="weatherbox">
+    <div class="component__weather-content">
+      <div class="temp"></div>
+      <div class="weather_overview"></div>
+      <div class="forecast-box"></div>
+    </div>
+    
+   
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const LOCATION = document.getElementsByClassName('weather_overview')[0];
+  const TEMP = document.getElementsByClassName('temp')[0];
+  const FORECAST = document.getElementsByClassName('forecast-box')[0];
+  
+  const API = 'e43f64ee98be9268f7a7f49e34aecfdf';
+  
+  function weatherInformtaion(position) {
+  const URL = `https://api.openweathermap.org/data/2.5/forecast/daily?${position}&cnt=7&units=imperial&APPID=${API}`;
+  
+  return fetch(URL, {
+  method: 'GET',
+  }).then(data => data.json());
+  }
+  
+  renderData = (location, forecast) => {
+  
+  const currentWeather = forecast[0].weather[0];
+  const leftPannel = `<h1>${location.name}</h1><small>${currentWeather.description}</small>`;
+  TEMP.innerHTML = `${Math.round(forecast[0].temp.day)}°`;
+  LOCATION.innerHTML = leftPannel;
+
+  console.log(forecast[0].temp.day)
+  
+  
+  forecast.forEach(day => {
+  let date = new Date(day.dt * 1000);
+  let days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+  let getDay = days[date.getDay()];
+  let overview = document.createElement("div");
+
+  console.log(day)
+
+  overview.className = 'forecast__item';
+  overview.innerHTML = `<div class="forecast-item__heading">${getDay}</div>
+  <div class="forecast-item__info"><p class="wi ${day.weather[0]}"></p> <span class="degrees">${Math.round(day.temp.day)}<p class="wi wi-degrees">°</></span></div>`;
+  FORECAST.appendChild(overview);
+  });
+  }
+  
+  navigator.geolocation.getCurrentPosition((position) => {
+  const coordinates = `lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+  
+  weatherInformtaion(coordinates).then(weatherData => {
+  const city = weatherData.city;
+  const dailyForecast = weatherData.list;
+  
+  renderData(city, dailyForecast);
+  });
+  });
+})
+  
+      
+    </script>
+  </div>
+  <div>
+    
+    
+  </div>
