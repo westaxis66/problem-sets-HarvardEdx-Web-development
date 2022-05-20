@@ -1,0 +1,37 @@
+.fa-thumbs-up{
+    color: blue !important;
+    cursor: pointer;
+}
+.btn-primary:hover{
+    color: #fff;
+    background-color: #329ff8;
+    border-color: #329ff8;
+}
+.hide{
+    display:none;
+}
+
+#navlink{
+    text-align: center;
+    color: rgb(201, 10, 10);
+}
+
+.navbar{
+    background-color: rgb(4, 125, 238);
+
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+}
+body{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+
+}
+
+

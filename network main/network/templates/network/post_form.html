@@ -1,0 +1,31 @@
+{% if user.is_authenticated %}
+
+    <div class="container border border-secondary rounded-sm" data-post_ctr="{{ post.id }}">
+        <div class="row">
+            <div class="col-sm" style="margin: 20px;">
+                <div id="post-view">
+                    <form id="post-form" action="{% url 'post' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <textarea autofocus class="form-control" id="post-message" name="textarea" required="required" maxlength="{{ POST_MAX_LENGTH }}" placeholder="Post">{% if post.text %}{{ post.text }}{% endif %}</textarea>
+                            {% if post_id %}
+                                <input type="hidden" id="post_id" name="post_id" value="{{ post.id }}">
+                            {% endif %}
+                        </div>
+                        <span class="align-bottom">
+                            <div class="row algin-bottom">
+                                <div class="col">
+                                    <input type="submit" class="btn btn-primary" value="Post"/>
+                                </div>
+                                
+                            </div>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+{%endif%}

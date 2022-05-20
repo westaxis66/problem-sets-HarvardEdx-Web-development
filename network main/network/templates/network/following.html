@@ -1,0 +1,52 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<br>
+<h1>Following</h1>
+<br>
+<div id="posts">
+    {% for post in posts %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'profile' post.user.username %}">{{post.user.username}}</a></h5>
+            {%if post.user_id == user.id %}
+            <a href="#" class="card-link" id="edit_link_{{post.id}}" data-id="{{post.id}}" data-toggle="modal">Edit</a>
+            {%endif%}
+            <p class="card-text" id="post_text_{{post.id}}"> {{ post.text }}</p>
+            <form action="#" method="POST" id="frm_edit_{{post.id}}" data-id="{{post.id}}" style="display: none">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form_edit.id_post_edit_text }}
+                </div>
+                <div id="post_text_alert_{{post.id}}">
+                </div>
+                <button type="button" data-id="{{post.id}}" id="btn_close_{{post.id}}" class="btn btn-secondary"
+                    data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="btnSave">Save changes</button>
+            </form>
+
+            <p class="card-text"><small class="text-muted">{{post.post_date}}</small></p>
+            <p class="card-text">
+                <div class="row post-row">
+                    <div style="display: inline;">
+                        {% if request.user.is_authenticated %}
+                            {% if request.user in post.likes.all %}
+                                <i data-id="{{ post.id }}" class="fas fa-thumbs-up" style="color: blue;"></i>
+                            {% else %}
+                                <i data-id="{{ post.id }}" class="far fa-thumbs-up" style="color: blue;"></i>
+                            {% endif %}
+                        {% else %}    
+                            <a href="{% url 'login' %}"><i class="far fa-thumbs-up" style="color: blue;"></i></a>
+                        {% endif %}
+                        <div class="like-count" data-id="{{ post.id }}" style="display: inline;">{{ post.like_count }}</div>
+                    </div>
+                </div>
+            </div>
+            </p>
+        </div>
+    </div>
+    {% empty %}
+    <h2>No posts</h2>
+    {% endfor %}
+</div>
+{% endblock %}

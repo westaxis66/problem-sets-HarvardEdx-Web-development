@@ -1,0 +1,84 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body">
+    <h1 class="card-title">{{user_profile.username}}</h1>
+    <h5 class="card-text"><span id="sp_following">{{total_following}}</span> Following</h5>
+    <h5 class="card-text"><span id="sp_followers">{{total_followers}}</span> Followers</h5>
+    <p class="card-text"><small class="text-muted"></small></p>
+    {% if user.is_authenticated and user.id != user_profile.id %}
+    <p class="card-text">
+        {% if following > 0 %}
+        <button id="btnfollow" data-id="{{user_profile.id}}" type="button" class="btn btn-primary">Following</button>
+        {% else %}
+        <button id="btnfollow" data-id="{{user_profile.id}}" type="button" class="btn btn-outline-primary">Follow</button>
+        {%endif%}
+    </p>
+    {%endif%}
+    </div>
+    
+</div>
+<br>
+<div>
+    
+    {% if user.id == user_profile.id %}
+    {% include "network/post_form.html" %}
+    {%endif%}
+</div>
+<br>
+<h3>Posts Feed</h3>
+<div id="posts">
+    {% for post in posts %}
+    <div class="card" data-post_ctr="{{ post.id }}">
+        <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'profile' post.user.username %}">{{post.user.username}}</a></h5>
+            {% if post.user_id == user.id %}
+            
+            
+            <a class="edit_post" id="edit_post_{{ post.id }}" data-editid="{{ post.id }}" href="#post{{ post.id }}">Edit</a>
+            <a href="{% url 'delete' post.id %}" class="card-link"  id="btn_delete_{{post.id}}"  data-id="{{post.id}}">Delete</a>
+            {% endif %}
+            <div data-message="{{ post.id }}" id="post_text_{{post.id}}" class="card-text">{{ post.text }}</div>
+            <div class="container-fluid post-container" data-edit_ctr="{{ post.id }}" style="display: none;">
+                <div>
+                    <textarea autofocus cols="80" id="text_edit{{ post.id }}" required="required" maxlength="{{ POST_MAX_LENGTH }}">{{ post.text }}</textarea>
+                </div>
+                <div>
+                    <button data-cancelid="{{ post.id }}" id="cancel-button_{{ post.id }}" type="button" class="btn btn-primary cancel-button">Cancel</button>
+                    <button data-saveid="{{ post.id }}" id="save-button_{{ post.id }}" type="button" class="btn btn-primary save-button">Save</button> 
+                    
+                </div>
+            </div>
+            <p class="card-text"><small class="text-muted">{{post.post_date}}</small></p>
+            <p class="card-text">
+                <div class="row post-row">
+                    <div style="display: inline;">
+                        {% if request.user.is_authenticated %}
+                            {% if request.user in post.likes.all %}
+                                <i data-id="{{ post.id }}" class="fas fa-thumbs-up" style="color: blue;"></i>
+                            {% else %}
+                                <i data-id="{{ post.id }}" class="far fa-thumbs-up" style="color: blue;"></i>
+                            {% endif %}
+                        {% else %}    
+                            <a href="{% url 'login' %}"><i class="far fa-thumbs-up" style="color: blue;"></i></a>
+                        {% endif %}
+                        <div class="like-count" data-id="{{ post.id }}" style="display: inline;">{{ post.like_count }}</div>
+                    </div>
+                </div>
+            </div>
+                
+            </p>
+        </div>
+    </div>
+            
+            {% empty %}
+            <h2>No posts</h2>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
