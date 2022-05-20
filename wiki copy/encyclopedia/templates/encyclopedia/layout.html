@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+        
+        <link type="image/png" href="{% static 'encyclopedia/IMG_3752.jpg' %}">
+
+        
+    </head>
+    <body>
+        <div class="row">
+            <div class="sidebar col-lg-2 col-md-3">
+                <div class="img">
+                    
+                    <img  src="{% static 'encyclopedia/IMG_3752.jpg' %}" width="200" height="200">
+                    
+                </div>
+                <h2>Tengu's Wiki</h2>
+                <form action="{% url 'search' %}">
+                    <input class="search" type="text" name="q" placeholder="Search Tengu's Wiki">
+                </form>
+                <div>
+                    <a href="{% url 'index' %}">Home</a>
+                </div>
+                <div>
+                    <a href ="{% url 'newEntry' %}">Make New Entry</a>
+                </div>
+                <div>
+                    <a href ="{% url 'random_title' %}">Random Entries</a>
+                </div>
+                
+                {% block nav %}
+                {% endblock %}
+            </div>
+            <div class="main col-lg-10 col-md-9">
+                {% block body %}
+                {% endblock %}
+
+            </div>
+                
+
+                
+            </div>
+        </div>
+
+    </body>
+</html>
+

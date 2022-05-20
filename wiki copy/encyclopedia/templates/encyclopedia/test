@@ -1,0 +1,172 @@
+    """ Loads requested title page if it exists, else displays search results """
+"""    value = request.GET.get('q','')
+    getEntry = util.get_entry(value)
+
+    # If search page reached by submitting search form:
+    if request.method == "POST":
+        form = Search(request.POST)
+        
+
+        # If form is valid try to search for title:
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            getEntry = util.get_entry(title)
+
+            print('search request: ', title)
+
+            if getEntry:
+                # If entry exists, redirect to entry view
+                return redirect(reverse('entry', args=[value]))
+            else:
+                # Otherwise display relevant search results
+                #related_titles = util.related_titles(title)
+                related = []
+                for entry in util.list_entries():
+                 if title.lower() in entry.lower() or entry.lower() in title.lower():
+                   related.append(entry)
+
+                return render(request, "encyclopedia/search.html", {
+                "title": title,
+                "related_titles": util.related_titles(title),
+                "search": Search()
+                })
+
+    # Otherwise form not posted or form not valid, return to index page:
+    return redirect(reverse('index'))
+
+related = []
+
+    for entry_name in list_entries():
+            if title.lower() in entry_name.lower() or entry_name.lower() in title.lower():
+                related.append(entry_name)
+
+    return related """
+
+<!--{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Entry not found: {{title}}
+{% endblock %}
+
+{% block body %}
+
+  <h1> Error: Entry "{{title}}" does not exist</h1>
+
+  <p>The requested entry "{{title}}" does not exist on qwikipedia.</p>
+  <p>Check the <a href="{% url 'index' %}">index</a> page to see available articles.</p>
+
+  {% if related_titles %}
+  <p>Related Entries:</p>
+    <ul>
+      {% for title in related_titles %}
+      <li><a href="{% url 'entry' title=title %}">{{title}}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+{% endblock %}-->
+
+
+<div class="main col-lg-10 col-md-9">
+                <!--Flashed Messages -->
+                {% if messages %}
+                  <div class="messages">
+                  {% for message in messages %}
+                    <!-- Warning Messages-->
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>-->
+                    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <strong>{{ message}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>{{ message}}</strong>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                     </div>-->
+                    {% endif %}
+                    <!-- Success Messages -->
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>-->
+                    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <strong>{{ message}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                      <!--<div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message}}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                      </div>-->
+                    {% endif %}
+                  {% endfor %}
+                  </div>
+                {% endif %}
+
+
+<!--action="{% url 'search' %}" method="post">
+                    {% csrf_token %}
+                    {{ search_form }}-->
+
+
+#            if util.get_entry(title):
+#              messages.error(request, 'This page title already exists! Please go to that title page and edit it instead!')
+#              return render(request, "encyclopedia/newEntry.html", {
+#                "new_entry": form,
+#                "search": Search()
+#            })
+#            getEntry = util.get_entry(title)
+#            markdown = Markdown().convert(getEntry)
+#            page_converted = markdowner.convert(page)
+#        return render(request, "encyclopedia/entry.html",{
+#                "search": Search(),
+#                "page": getEntry,
+#                "title": title,
+                
+#        })
+
+ 
+      #messages.success(request, f'New page "{title}" created successfully!')
+     
+
+#        return render(request, "encyclopedia/create.html", {"search": Search(), "page": NewEntry()})
+
+#        else:messages.error(request, 'Entry form not valid, please try again!')
+#        return render(request, "encyclopedia/create.html", {
+#            "new_entry": form,
+#            "search": Search()
+#          })
+
+#        # Check that title does not already exist:
+#        if util.get_entry(title):
+#            messages.error(request, 'This page title already exists! Please go to that title page and edit it instead!')
+#            return render(request, "encyclopedia/create.html", {
+#              "new_entry": form,
+#              "search": Search()
+#            })
+        # Otherwise save new title file to disk, take user to new page:
+#        
+#class Search(forms.Form):
+    #Class for search Bar 
+#    title = forms.CharField(label='', widget=forms.TextInput(attrs={
+#      "class": "search",
+#      }))
+
+#"form": Search(),
+
+#"search": Search()
+
+
+
+<form action="{% url 'newEntry' %}" method="post">
+    {% csrf_token %}
+    {{ new_entry }}
+    <input class= "btn btn-primary" type="submit" value="Submit">
+  </form>
