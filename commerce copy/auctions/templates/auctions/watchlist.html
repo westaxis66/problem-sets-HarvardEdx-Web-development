@@ -1,0 +1,31 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1 style="text-align: center; padding: 20pt">Watchlist</h1>
+
+    {% if watchlist %}
+
+        {% for watchlist_filter in watchlist %}
+
+            <div class = "container jumbotron">
+                <h2 style="text-align: center;"><a href="{% url 'listing' watchlist_filter.listing.id %}">{{watchlist_filter.listing.title}}</a></h2>
+                {% if watchlist_filter.listing.image %}
+                    <img src="{{watchlist_filter.listing.image}}" alt="" style = "width: 30vw">
+                {% endif %}
+                <div style = "display: inline-block; padding: 10pt">
+                    <h4>Listed by:</h4><p style = "font-weight:bolder">{{watchlist_filter.listing.user}}</p>
+                    <h4>Description:</h4><p>{{watchlist_filter.listing.description}}</p>
+                    {% if watchlist_filter.listing.category %}
+                        <h5>Category:</h5><p style = "color: black">{{watchlist_filter.listing.category}}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+        {% endfor %}
+        {% else %}
+            <div style="text-align: center; padding: 100pt">
+                <br>
+                <h2>There are no items in your Watchlist</h2>
+                </div>
+    {% endif %}
+{% endblock %}

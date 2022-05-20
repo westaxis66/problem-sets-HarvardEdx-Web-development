@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Post Your Item</h2>
+    
+    <form action="{% url 'post' %}" method="post">
+        {% csrf_token %}
+        
+        <h6>Title of listing</h6>
+        {{ listing_form.title }}
+
+        <br><br>
+
+        <h6>Description of listing</h6>
+        {{ listing_form.description }}
+
+        <br><br>
+
+        <h6>Starting bid</h6>
+        {{ listing_form.begining_bid }}
+
+        <br><br>
+
+        <h6>Image URL</h6>
+        {{ listing_form.image }}
+
+        <br><br>
+
+        <h6>Category</h6>
+        {{ listing_form.category }}
+        
+        <br>
+        
+    <input type="submit" class="btn btn-primary" value="Post">
+    </form>
+
+{% endblock %}
